@@ -1,0 +1,24 @@
+{
+    "name": "arcanedev/arabic",
+    "description": "Arabic Libs & Helpers",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ARCANEDEV",
+            "email": "arcanedev.maroc@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arcanedev\\Arabic\\":          "src/",
+            "Arcanedev\\Arabic\\Tests\\":   "tests/"
+        }
+    },
+    "minimum-stability": "stable"
+}
