@@ -1,8 +1,9 @@
 <?php namespace Arcanedev\Arabic;
 
-use Arcanedev\Arabic\Contracts\NumberInterface;
 use Arcanedev\Arabic\Exceptions\InvalidTypeException;
 use Arcanedev\Arabic\Exceptions\NumbersNotFoundException;
+
+use Arcanedev\Arabic\Contracts\NumberInterface;
 
 class Number implements NumberInterface
 {

@@ -85,6 +85,11 @@ class Months implements MonthsInterface
         return self::combineArabicMonths(range(1, 12));
     }
 
+    /**
+     * @param array $keys
+     *
+     * @return array
+     */
     private static function combineArabicMonths($keys)
     {
         return array_combine(
@@ -93,16 +98,27 @@ class Months implements MonthsInterface
         );
     }
 
+    /**
+     * @return array
+     */
     private static function getAllHijriByNames()
     {
         return self::$hijriMonthsNames;
     }
 
+    /**
+     * @return array
+     */
     public static function getAllHijriByIndexes()
     {
         return self::combineHijriMonths(range(1, 12));
     }
 
+    /**
+     * @param array $keys
+     *
+     * @return array
+     */
     private static function combineHijriMonths($keys)
     {
         return array_combine(
@@ -168,6 +184,9 @@ class Months implements MonthsInterface
         return self::getAllArabicByIndexes()[$index];
     }
 
+    /**
+     * @return array
+     */
     public static function getAllHijri()
     {
         return self::getAllHijriByNames();

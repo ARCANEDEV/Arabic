@@ -1,9 +1,10 @@
 <?php namespace Arcanedev\Arabic;
 
-use Arcanedev\Arabic\DateTime\Days;
-use Arcanedev\Arabic\DateTime\Months;
-use Arcanedev\Arabic\DateTime\Periods;
 use DateTime as BaseDateTime;
+
+use Arcanedev\Arabic\DateTime\Days      as Days;
+use Arcanedev\Arabic\DateTime\Months    as Months;
+use Arcanedev\Arabic\DateTime\Periods   as Periods;
 
 use Arcanedev\Arabic\Exceptions\InvalidDateFormatException;
 use Arcanedev\Arabic\Exceptions\InvalidTimestampException;
@@ -18,12 +19,6 @@ class DateTime implements DateTimeInterface
      */
     /** @var BaseDateTime */
     protected $date;
-
-    /** @var array */
-    protected $arabicPeriods    = [
-        'am'    => 'صباحا',
-        'pm'    => 'مساءا'
-    ];
 
     const ARABIC_HOUR_TITLE     = 'الساعة';
 
@@ -50,11 +45,25 @@ class DateTime implements DateTimeInterface
     /**
      * Get date
      *
-     * @return \DateTime
+     * @return BaseDateTime
      */
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set Date with a base DateTime Class
+     *
+     * @param BaseDateTime $date
+     *
+     * @return DateTime
+     */
+    public function setDate(BaseDateTime $date)
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
     /**
