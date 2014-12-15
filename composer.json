@@ -18,7 +18,10 @@
         "psr-4": {
             "Arcanedev\\Arabic\\":          "src/",
             "Arcanedev\\Arabic\\Tests\\":   "tests/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "minimum-stability": "stable"
 }

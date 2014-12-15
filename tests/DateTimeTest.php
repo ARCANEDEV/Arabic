@@ -8,6 +8,9 @@ class DateTimeTest extends TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = 'Arcanedev\\Arabic\\DateTime';
+
     /** @var DateTime */
     protected $datetime;
 
@@ -29,6 +32,14 @@ class DateTimeTest extends TestCase
         unset($this->datetime);
     }
 
+    /**
+     * @return DateTime
+     */
+    protected function getObject()
+    {
+        return $this->datetime;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Test Functions
      | ------------------------------------------------------------------------------------------------
@@ -38,7 +49,8 @@ class DateTimeTest extends TestCase
      */
     public function testCanBeInstantiate()
     {
-        $this->assertInstanceOf('Arcanedev\\Arabic\\DateTime', $this->datetime);
+        parent::testCanBeInstantiate();
+
         $this->assertInstanceOf('DateTime', $this->datetime->getDate());
     }
 

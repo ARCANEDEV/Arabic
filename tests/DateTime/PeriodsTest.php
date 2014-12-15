@@ -9,6 +9,9 @@ class PeriodsTest extends TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = 'Arcanedev\\Arabic\\DateTime\\Periods';
+
     /** @var Periods */
     private $periods;
 
@@ -30,17 +33,18 @@ class PeriodsTest extends TestCase
         unset($this->periods);
     }
 
+    /**
+     * @return Periods
+     */
+    protected function getObject()
+    {
+        return $this->periods;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Test Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * @test
-     */
-    public function testCanBeInstantiate()
-    {
-        $this->assertInstanceOf('Arcanedev\\Arabic\\DateTime\\Periods', $this->periods);
-    }
 
     /**
      * @test

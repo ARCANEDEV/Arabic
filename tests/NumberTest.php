@@ -8,6 +8,9 @@ class NumberTest extends TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = 'Arcanedev\\Arabic\\Number';
+
     /** @var Number */
     private $number;
 
@@ -31,17 +34,15 @@ class NumberTest extends TestCase
         unset($this->number);
     }
 
+    protected function getObject()
+    {
+        return $this->number;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Test Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * @test
-     */
-    public function testCanBeInstantiate()
-    {
-        $this->assertInstanceOf('Arcanedev\\Arabic\\Number', $this->number);
-    }
 
     /**
      * @test

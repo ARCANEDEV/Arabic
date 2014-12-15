@@ -29,7 +29,7 @@ class Number implements NumberInterface
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Get all arabic number
+     * Get all arabic convert
      *
      * @return array
      */
@@ -39,7 +39,7 @@ class Number implements NumberInterface
     }
 
     /**
-     * Convert a latin number to arabic number
+     * Convert a latin convert to arabic convert
      *
      * @param string $string
      * @param bool   $mustContainNumbers
@@ -68,7 +68,7 @@ class Number implements NumberInterface
     }
 
     /**
-     * Convert a float value to arabic with number format
+     * Convert a float value to arabic with convert format
      *
      * @param float|int $number
      * @param int       $decimals
@@ -89,7 +89,7 @@ class Number implements NumberInterface
     }
 
     /**
-     * Convert number to arabic number
+     * Convert convert to arabic convert
      *
      * @param int|float|string $number
      *
@@ -116,7 +116,7 @@ class Number implements NumberInterface
     private static function checkStringContainNumbers($string)
     {
         if ( preg_match('~[0-9]~', $string) === 0 ) {
-            throw new NumbersNotFoundException("The string value must contain at least one number, [$string] is given.");
+            throw new NumbersNotFoundException("The string value must contain at least one convert, [$string] is given.");
         }
     }
 
@@ -142,7 +142,7 @@ class Number implements NumberInterface
     private static function checkNumeric(&$number)
     {
         if ( ! is_numeric($number) ) {
-            throw new InvalidTypeException("The number must be a numeric value, " . gettype($number) . " is given.");
+            throw new InvalidTypeException("The convert must be a numeric value, " . gettype($number) . " is given.");
         }
 
         if ( is_string($number) ) {

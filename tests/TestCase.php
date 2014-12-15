@@ -8,6 +8,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = '';
 
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
@@ -23,6 +25,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
+    abstract protected function getObject();
+
     /**
      * @param string $class
      * @param string $name
@@ -36,6 +40,18 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
 
         return $method;
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Common Test Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * @test
+     */
+    public function testCanBeInstantiate()
+    {
+        $this->assertInstanceOf($this->instance, $this->getObject());
     }
 
     /* ------------------------------------------------------------------------------------------------

@@ -10,6 +10,9 @@ class DaysTest extends TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = 'Arcanedev\\Arabic\\DateTime\\Days';
+
     /** @var Days */
     private $days;
 
@@ -31,17 +34,18 @@ class DaysTest extends TestCase
         unset($this->days);
     }
 
+    /**
+     * @return Days
+     */
+    protected function getObject()
+    {
+        return $this->days;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Test Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * @test
-     */
-    public function testCanBeInstantiate()
-    {
-        $this->assertInstanceOf('Arcanedev\\Arabic\\DateTime\\Days', $this->days);
-    }
 
     /**
      * @test

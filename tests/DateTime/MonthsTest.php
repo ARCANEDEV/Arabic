@@ -10,6 +10,9 @@ class MonthsTest extends TestCase
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
+    /** @var string */
+    protected $instance = 'Arcanedev\\Arabic\\DateTime\\Months';
+
     /** @var Months */
     private $months;
 
@@ -29,17 +32,15 @@ class MonthsTest extends TestCase
         unset($this->months);
     }
 
+    protected function getObject()
+    {
+        return $this->months;
+    }
+
     /* ------------------------------------------------------------------------------------------------
      |  Test Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * @test
-     */
-    public function testCanBeInstantiate()
-    {
-        $this->assertInstanceOf('Arcanedev\\Arabic\\DateTime\\Months', $this->months);
-    }
 
     /**
      * @test
