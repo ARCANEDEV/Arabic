@@ -1,5 +1,7 @@
 <?php namespace Arcanedev\Arabic\Str;
 
+use Arcanedev\Arabic\Exceptions\MaximumLengthException;
+
 class Numbers
 {
     /* ------------------------------------------------------------------------------------------------
@@ -12,17 +14,23 @@ class Numbers
     /** @var array */
     private $complications  = [];
 
-    /** @var array */
+    /**
+     * Hindu–Arabic numeric
+     *
+     * @var array
+     */
     private $arabicIndic   = [];
 
     /** @var array */
     private $ordering       = [];
 
-    private $feminine       = 1;
+    private $feminine       = true;
 
-    private $format        = 1;
+    private $format         = 1;
 
-    private $order         = 1;
+    private $order          = 1;
+
+    private $ordered        = true;
 
     const KEY_MALE          = 'male';
     const KEY_FEMALE        = 'female';
@@ -46,19 +54,23 @@ class Numbers
     {
         $data = include __DIR__ . '/../data/numbers.php';
 
-        $this->loadIndividualsData($data);
+        $this->loadIndividualsData($data['individual']);
 
-        $this->loadComplicationData($data);
+        $this->complications = $data['complications'];
 
-        $this->loadOrderingData($data);
+        $this->ordering      = $data['ordering'];
 
-        $this->loadArabicIndic($data);
+        $this->arabicIndic   = $data['arabic-indic'];
     }
 
-
-    private function loadIndividualsData($data)
+    /**
+     * Load the individuals data
+     *
+     * @param array $individuals
+     */
+    private function loadIndividualsData($individuals)
     {
-        foreach ($data['individual'] as $num => $individual) {
+        foreach ($individuals as $num => $individual) {
             if ( is_string($individual) ) {
                 $this->individuals[$num] = $individual;
             }
@@ -67,30 +79,11 @@ class Numbers
             }
             else {
                 foreach($individual as $gender => $value) {
-                    if ( is_array($value) && isset($value['grammar'])) {
-                        $this->individuals[$num][$gender] = $value['grammar'];
-                    }
-                    else {
-                        $this->individuals[$num][$gender] = $value;
-                    }
+                    $this->individuals[$num][$gender] = (is_array($value) and isset($value['grammar']))
+                        ? $value['grammar'] : $value;
                 }
             }
         }
-    }
-
-    private function loadComplicationData($data)
-    {
-        $this->complications = $data['complications'];
-    }
-
-    private function loadOrderingData($data)
-    {
-        $this->ordering      = $data['ordering'];
-    }
-
-    private function loadArabicIndic($data)
-    {
-        $this->arabicIndic   = $data['arabic-indic'];
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -98,27 +91,35 @@ class Numbers
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Get the feminine flag of counted object
+     * Set Numbers to masculine output
      *
-     * @return int return current setting of counted object feminine flag
+     * @return Numbers
      */
-    public function getFeminine()
+    public function masculine()
     {
-        return $this->feminine;
+        return $this->setFeminine(false);
+    }
+
+    /**
+     * Set Numbers to feminine output
+     *
+     * @return Numbers
+     */
+    public function feminine()
+    {
+        return $this->setFeminine(true);
     }
 
     /**
      * Set feminine flag of the counted object
      *
-     * @param int $value Counted object feminine (1 for masculine & 2 for feminine)
+     * @param bool $feminine
      *
-     * @return self
+     * @return Numbers
      */
-    public function setFeminine($value)
+    private function setFeminine($feminine = true)
     {
-        if ( $value == 1 or $value == 2) {
-            $this->feminine = $value;
-        }
+        $this->feminine = $feminine;
 
         return $this;
     }
@@ -150,7 +151,7 @@ class Numbers
      *
      * @param int $value Grammar position of counted object (1 if Marfoua & 2 if Mansoub or Majrour)
      *
-     * @return self
+     * @return Numbers
      */
     public function setFormat($value)
     {
@@ -159,6 +160,16 @@ class Numbers
         }
 
         return $this;
+    }
+
+    public function ordered()
+    {
+
+    }
+
+    public function unordered()
+    {
+
     }
 
     /**
@@ -190,32 +201,32 @@ class Numbers
     /**
      * @param int  $number
      * @param bool $prefixed
-     * @param bool $isFormated
+     * @param bool $format
      *
      * @return string
      */
-    private function getIndividualItem($number, $prefixed = false, $isFormated = true)
+    private function getIndividualItem($number, $prefixed = false, $format = true)
     {
-        $item   = $isFormated
-            ? $this->individuals[$number][$this->getFormat()]
-            : $this->individuals[$number];
+        $item   = $this->individuals[$number];
+
+        if ($format) {
+            $item = $item[$this->getFormat()];
+        }
 
         return ($prefixed ? self::STR_PRE : '') . $item;
     }
 
     /**
      * @param int  $number
-     * @param bool $isFormated
+     * @param bool $format
      *
      * @return string
      */
-    private function getOnesIndividualItem($number, $isFormated = false)
+    private function getOnesIndividualItem($number, $format = false)
     {
         $item = $this->individuals[$number][$this->getGenderKey()];
 
-        return $isFormated
-            ? $item[$this->getFormat()]
-            : $item;
+        return $format ? $item[$this->getFormat()]  : $item;
     }
 
     /**
@@ -235,13 +246,16 @@ class Numbers
     }
 
     /**
-     * @param int $number
+     * Get Hundred Individual Item
+     *
+     * @param int  $number
+     * @param bool $prefixed
      *
      * @return string
      */
-    private function getHundredIndividualItem($number)
+    private function getHundredIndividualItem($number, $prefixed = false)
     {
-        return $this->getIndividualItem($number, false, ($number === 200));
+        return $this->getIndividualItem($number, $prefixed, ($number === 200));
     }
 
     /**
@@ -274,12 +288,13 @@ class Numbers
         }
 
         if ( $number == 1 && $this->getOrder() == 2 ) {
-            return $this->getFeminine() == 1 ? 'الأول' : 'الأولى';
+            return $this->isFeminine() ? 'الأولى' : 'الأول';
         }
 
         $string = $this->getNegativeSignFromNumber($number);
 
         $number     = explode('.', $number);
+
         $string    .= $this->subIntToStr($number[0]);
 
         if ( ! empty($number[1]) ) {
@@ -291,13 +306,13 @@ class Numbers
     }
 
     /**
-     * Represent integer convert in Arabic-Indic digits using HTML entities
+     * Represent integer convert in Arabic-Indic digits using HTML entities (ASCII)
      *
      * @param int $number The convert you want to present in Arabic-Indic digits using HTML entities
      *
      * @return string The Arabic-Indic digits represent inserted integer convert using HTML entities
      */
-    public function intToIndic($number)
+    public function toArabicIndic($number)
     {
         return strtr("$number", $this->arabicIndic);
     }
@@ -327,7 +342,9 @@ class Numbers
     /**
      * Spell integer convert in Arabic idiom
      *
-     * @param int|float $number The convert you want to spell in Arabic idiom
+     * @param int|float $number
+     *
+     * @throws MaximumLengthException
      *
      * @return string The Arabic idiom that spells inserted convert
      */
@@ -335,7 +352,9 @@ class Numbers
     {
         $number = trim($number);
 
-        if ( $number === 0 ) {
+        $this->checkNumberLength($number);
+
+        if ($number === '0') {
             return self::STR_ZERO;
         }
 
@@ -345,40 +364,44 @@ class Numbers
 
         $items  = [];
 
-        for ($i = (count($blocks) - 1); $i >= 0; $i--) {
-            $number = (int) floor($blocks[$i]);
+        foreach(array_reverse($blocks, true) as $i => $block) {
+            $number = (int) floor($block);
 
             $text   = $this->writtenBlock($number);
 
-            if ( $text ) {
-                if ($number === 1 and $i !== 0) {
+            if ( empty($text) ) {
+                continue;
+            }
+
+            if ($i !== 0) {
+                if ($number === 1) {
                     $text = $this->complications[$i][4];
 
                     $text = ($this->isOrdered() ? self::STR_PRE : '') . $text;
                 }
-                elseif ($number == 2 and $i != 0) {
+                elseif ($number == 2) {
                     $text = $this->complications[$i][$this->getFormat()];
 
                     $text = ($this->isOrdered() ? self::STR_PRE : '') . $text;
                 }
-                elseif ($number > 2 and $number < 11 and $i != 0) {
+                elseif ($number > 2 and $number < 11) {
                     $text .= ' ' . $this->complications[$i][3];
 
                     $text = ($this->isOrdered() ? self::STR_PRE : '') . $text;
                 }
-                elseif ($i != 0) {
+                else {
                     $text .= ' ' . $this->complications[$i][4];
 
                     $text = ($this->isOrdered() ? self::STR_PRE : '') . $text;
                 }
-
-                if ( $text != '' and $zeros != '') {
-                    $text  = $zeros . ' ' . $text;
-                    $zeros = '';
-                }
-
-                array_push($items, $text);
             }
+
+            if ( $text != '' and $zeros != '') {
+                $text  = $zeros . ' ' . $text;
+                $zeros = '';
+            }
+
+            array_push($items, $text);
         }
 
         return implode(' ' . self::STR_AND . ' ', $items);
@@ -402,6 +425,13 @@ class Numbers
         return $zeros;
     }
 
+    /**
+     * Divide number by 3 digits
+     *
+     * @param $number
+     *
+     * @return array
+     */
     private function getBlocks($number)
     {
         $blocks = [];
@@ -438,7 +468,7 @@ class Numbers
         if ( $number != 0 ) {
             if ( $this->isOrdered() ) {
                 if ( $number <= 10 ) {
-                    array_push($items, $this->getOrderingItem($number));
+                    array_push($items, $this->getOrderingItem($number, true));
                 }
                 elseif ( $number < 20 ) {
                     $number    -= 10;
@@ -530,7 +560,7 @@ class Numbers
      *
      * @return bool
      */
-    private function isMasculine()
+    public function isMasculine()
     {
         return ! $this->isFeminine();
     }
@@ -540,9 +570,9 @@ class Numbers
      *
      * @return bool
      */
-    private function isFeminine()
+    public function isFeminine()
     {
-        return $this->getFeminine() === 1;
+        return $this->feminine;
     }
 
     /**
@@ -561,5 +591,19 @@ class Numbers
     private function isInOrdering($number)
     {
         return isset($this->ordering[$number]);
+    }
+
+    /**
+     * @param string $number
+     *
+     * @throws MaximumLengthException
+     */
+    private function checkNumberLength($number)
+    {
+        if (strlen($number) > 14) {
+            $msg = 'The number of digits exceeds the maximum length (14 digits).';
+
+            throw new MaximumLengthException($msg);
+        }
     }
 }

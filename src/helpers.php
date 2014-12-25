@@ -3,7 +3,7 @@
 if ( ! function_exists('dd') ) {
     /**
      * Dump & Die
-     * 
+     *
      * @codeCoverageIgnore
      */
     function dd() {
