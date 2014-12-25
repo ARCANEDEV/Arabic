@@ -399,7 +399,7 @@ class DateTime implements DateTimeInterface
 
         $interval = $this->getDate()->diff(new BaseDateTime('now'));
 
-        if ( $interval->invert === 1) {
+        if ( (bool) $interval->invert ) {
             return 'future';
         }
 

@@ -92,6 +92,18 @@ class DateTimeTest extends TestCase
 
     /**
      * @test
+     */
+    public function testCanSetDateTime()
+    {
+        $datetime = new \DateTime;
+
+        $this->datetime->setDate($datetime);
+
+        $this->assertEquals($datetime->getTimestamp(), $this->datetime->getTimestamp());
+    }
+
+    /**
+     * @test
      * @expectedException \Arcanedev\Arabic\Exceptions\InvalidTimestampException
      */
     public function testMustThrowInvalidTimestampException()
@@ -105,6 +117,7 @@ class DateTimeTest extends TestCase
     public function testGetters()
     {
         $date = new \DateTime;
+
         $this->assertEquals($date->format('Y'), $this->datetime->getYear());
         $this->assertEquals($date->format('m'), $this->datetime->getMonth());
         $this->assertEquals($date->format('d'), $this->datetime->getDay());
@@ -184,7 +197,7 @@ class DateTimeTest extends TestCase
     /**
      * @test
      */
-    public function testSwitchDate()
+    public function testCanSwitchOutputDate()
     {
         $time = \DateTime::createFromFormat('Y-m-d H:i:s', '2014-12-12 12:00:00')->getTimestamp();
 

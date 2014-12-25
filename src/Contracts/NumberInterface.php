@@ -17,7 +17,7 @@ interface NumberInterface
     public static function all();
 
     /**
-     * Convert a latin convert to arabic convert
+     * Convert a latin number to arabic number
      *
      * @param string $string
      * @param bool   $mustContainNumbers
@@ -29,7 +29,7 @@ interface NumberInterface
     public static function convert($string, $mustContainNumbers = true);
 
     /**
-     * Convert a float value to arabic with convert format
+     * Convert a float value to arabic with number format
      *
      * @param float|int $number
      * @param int       $decimals
@@ -43,7 +43,7 @@ interface NumberInterface
     public static function convertFloat($number, $decimals = 2, $decimalMark = '.', $thousandsMark = ',');
 
     /**
-     * Convert convert to arabic convert
+     * Convert number to arabic number
      *
      * @param int|float|string $number
      *

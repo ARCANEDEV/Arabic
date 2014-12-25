@@ -80,29 +80,17 @@ class Numbers
 
     private function loadComplicationData($data)
     {
-        if ( ! isset($data['complications']) ) {
-            throw new \Exception('Ordering data not found, check the data array.');
-        }
-
         $this->complications = $data['complications'];
     }
 
     private function loadOrderingData($data)
     {
-        if ( ! isset($data['ordering']) ) {
-            throw new \Exception('Ordering data not found, check the data array.');
-        }
-
-        $this->ordering = $data['ordering'];
+        $this->ordering      = $data['ordering'];
     }
 
     private function loadArabicIndic($data)
     {
-        if ( ! isset($data['arabic-indic']) ) {
-            throw new \Exception('Ordering data not found, check the data array.');
-        }
-
-        $this->arabicIndic = $data['arabic-indic'];
+        $this->arabicIndic   = $data['arabic-indic'];
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -142,7 +130,9 @@ class Numbers
      */
     private function getGenderKey()
     {
-        return $this->isFeminine() ? self::KEY_FEMALE : self::KEY_MALE;
+        return $this->isFeminine()
+            ? self::KEY_FEMALE
+            : self::KEY_MALE;
     }
 
     /**
@@ -206,13 +196,11 @@ class Numbers
      */
     private function getIndividualItem($number, $prefixed = false, $isFormated = true)
     {
-        $prefix = ($prefixed ? self::STR_PRE : '');
-
         $item   = $isFormated
             ? $this->individuals[$number][$this->getFormat()]
             : $this->individuals[$number];
 
-        return $prefix . $item;
+        return ($prefixed ? self::STR_PRE : '') . $item;
     }
 
     /**
@@ -239,13 +227,11 @@ class Numbers
      */
     private function getTensIndividualItem($number, $prefixed = false, $withGender = false)
     {
-        $prefix = ($prefixed ? self::STR_PRE : '');
-
         $item = $withGender
             ? $this->individuals[$number][$this->getGenderKey()]
             : $this->individuals[$number];
 
-        return $prefix . $item[$this->getFormat()];
+        return ($prefixed ? self::STR_PRE : '') . $item[$this->getFormat()];
     }
 
     /**
@@ -320,7 +306,6 @@ class Numbers
      |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
-
     /**
      * Get the negative sign if the number is negative
      *
