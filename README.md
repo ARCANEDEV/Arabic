@@ -1,4 +1,4 @@
-# Arabic Libs and Helpers
+Arabic Libs and Helpers
 ==============
 [![Travis Status](http://img.shields.io/travis/ARCANEDEV/Arabic.svg?style=flat-square)](https://travis-ci.org/ARCANEDEV/Arabic)
 [![Github Release](http://img.shields.io/github/release/ARCANEDEV/Arabic.svg?style=flat-square)](https://github.com/ARCANEDEV/Arabic/releases)
