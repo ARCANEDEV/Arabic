@@ -49,4 +49,9 @@ class StrTest extends TestCase
     {
         $this->assertInstanceOf($this->instance, $this->getObject());
     }
+
+    public function testCanConvertNumbers()
+    {
+        $this->assertEquals('ألف و مئتان و أربعة و ثلاثون', Str::number(1234));
+    }
 }

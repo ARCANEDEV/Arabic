@@ -189,4 +189,16 @@ class NumbersTest extends TestCase
             $this->numbers->convert(0.123456)
         );
     }
+
+    /**
+     * @test
+     *
+     * @expectedException \Arcanedev\Arabic\Exceptions\MaximumLengthException
+     */
+    public function testMustThrowMaximumLengthException()
+    {
+        $this->numbers->convert(123456789012345);
+    }
+
+    // TODO: Add Ordering Tests
 }

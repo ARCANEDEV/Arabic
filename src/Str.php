@@ -17,7 +17,6 @@ class Str
      */
     public function __construct()
     {
-        $this->numbers = new Numbers;
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -35,9 +34,9 @@ class Str
      *
      * @return string
      */
-    public function number($number, $order = null)
+    public static function number($number, $order = null)
     {
-        return $this->numbers->convert($number, $order);
+        return (new Numbers)->convert($number, $order);
     }
 
     /* ------------------------------------------------------------------------------------------------
