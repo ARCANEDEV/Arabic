@@ -1,9 +1,10 @@
-Arabic Libs and Helpers
+Arabic Libs and Helpers [![Packagist License](http://img.shields.io/packagist/l/arcanedev/arabic.svg?style=flat-square)](https://github.com/ARCANEDEV/Arabic/blob/master/LICENSE)
 ==============
 [![Travis Status](http://img.shields.io/travis/ARCANEDEV/Arabic.svg?style=flat-square)](https://travis-ci.org/ARCANEDEV/Arabic)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/ARCANEDEV/Arabic.svg?style=flat-square)](https://scrutinizer-ci.com/g/ARCANEDEV/Arabic/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ARCANEDEV/Arabic.svg?style=flat-square)](https://scrutinizer-ci.com/g/ARCANEDEV/Arabic/?branch=master)
 [![Github Release](http://img.shields.io/github/release/ARCANEDEV/Arabic.svg?style=flat-square)](https://github.com/ARCANEDEV/Arabic/releases)
-[![Coverage Status](http://img.shields.io/coveralls/ARCANEDEV/Arabic.svg?style=flat-square)](https://coveralls.io/r/ARCANEDEV/Arabic?branch=master)
-[![Packagist License](http://img.shields.io/packagist/l/arcanedev/arabic.svg?style=flat-square)](https://github.com/ARCANEDEV/Arabic/blob/master/LICENSE)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/arcanedev/arabic.svg?style=flat-square)](https://packagist.org/packages/arcanedev/arabic)
 [![Github Issues](http://img.shields.io/github/issues/ARCANEDEV/Arabic.svg?style=flat-square)](https://github.com/ARCANEDEV/Arabic/issues)
 
 *By [ARCANEDEV&copy;](http://www.arcanedev.net/)*
